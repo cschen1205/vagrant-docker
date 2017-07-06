@@ -21,6 +21,13 @@ Vagrant.configure("2") do |config|
 
     config.vm.provision "shell", inline: "sudo apt-get update -y"
     config.vm.provision "shell", inline: "sudo apt-get upgrade -y"
+    
+    config.vm.provision "shell", inline: "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -"
+    config.vm.provision "shell", inline: "sudo add-apt-repository \"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable\""
+    config.vm.provision "shell", inline: "sudo apt-get update"
+    config.vm.provision "shell", inline: "apt-cache policy docker-ce"
+    config.vm.provision "shell", inline: "sudo apt-get install -y docker-ce"
+    config.vm.provision "shell", inline: "sudo usermod -aG docker ${USER}"
 end
 
 
